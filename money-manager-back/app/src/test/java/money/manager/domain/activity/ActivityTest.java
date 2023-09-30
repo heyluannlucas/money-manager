@@ -16,7 +16,7 @@ public class ActivityTest {
     @Test
     public void givenValidParams_whenBuildingNewActivity_thenReturnNewValidActivity() {
 
-        final var aDescription = "A description";
+        final var aDescription = "App";
         final var aValue = 3.55f;
         final var aDate = InstantUtils.now();
         final var aType = ActivityType.REVENUE;
