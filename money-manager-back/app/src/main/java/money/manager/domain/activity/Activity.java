@@ -63,7 +63,7 @@ public class Activity {
             throw new DomainException("O ID da atividade deve ter um UUID valido de 36 caracteres");
         } else if (this.description.isBlank()) {
             throw new DomainException(("A descrição não pode estar em branco"));
-        } else if (this.description.length() > 3) {
+        } else if (this.description.length() < 3) {
             throw new DomainException("A descrição da atividade deve ter pelo menos 3 caractéres");
         } else if (this.type != ActivityType.EXPENSE && this.type != ActivityType.REVENUE) {
             throw new DomainException("O tipo de atividade deve ser de despesa ou ganho");
