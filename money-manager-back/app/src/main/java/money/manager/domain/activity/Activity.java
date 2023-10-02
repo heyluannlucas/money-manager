@@ -7,6 +7,9 @@ import money.manager.domain.activity.type.Type.ActivityType;
 import money.manager.domain.exception.DomainException;
 import money.manager.utils.InstantUtils;
 
+/**
+ * Uma classe que representa uma atividade financeira em um sistema de gerenciamento financeiro.
+ */
 public class Activity {
     private String id;
     private Instant date;
@@ -30,6 +33,15 @@ public class Activity {
         this.validate();
     }
 
+    /**
+     * Cria uma nova instância de atividade com valores padrão.
+     *
+     * @param aDate        A data da atividade.
+     * @param aDescription A descrição da atividade.
+     * @param aValue       O valor da atividade.
+     * @param aType        O tipo da atividade.
+     * @return Uma nova instância de atividade.
+     */
     public static Activity newActivity(final Instant aDate, final String aDescription,
                                        final float aValue, final ActivityType aType) {
         return new Activity(
@@ -43,6 +55,18 @@ public class Activity {
         );
     }
 
+    /**
+     * Cria uma instância de atividade com valores fornecidos.
+     *
+     * @param anId         O ID da atividade.
+     * @param aDate        A data da atividade.
+     * @param aDescription A descrição da atividade.
+     * @param aValue       O valor da atividade.
+     * @param aType        O tipo da atividade.
+     * @param aCreatedAt   A data e hora de criação da atividade.
+     * @param anUpdatedAt  A data e hora da última atualização da atividade.
+     * @return Uma instância de atividade com valores fornecidos.
+     */
     public static Activity with(final String anId, final Instant aDate, final String aDescription,
                                 final float aValue, final ActivityType aType, final Instant aCreatedAt,
                                 final Instant anUpdatedAt) {
@@ -60,17 +84,17 @@ public class Activity {
         if (this.id.isBlank()) {
             throw new DomainException("O ID da atividade não pode estar em branco");
         } else if (this.id.length() != 36) {
-            throw new DomainException("O ID da atividade deve ter um UUID valido de 36 caracteres");
+            throw new DomainException("O ID da atividade deve ter um UUID válido de 36 caracteres");
         } else if (this.description.isBlank()) {
-            throw new DomainException(("A descrição não pode estar em branco"));
+            throw new DomainException("A descrição não pode estar em branco");
         } else if (this.description.length() < 3) {
-            throw new DomainException("A descrição da atividade deve ter pelo menos 3 caractéres");
+            throw new DomainException("A descrição da atividade deve ter pelo menos 3 caracteres");
         } else if (this.type != ActivityType.EXPENSE && this.type != ActivityType.REVENUE) {
             throw new DomainException("O tipo de atividade deve ser de despesa ou ganho");
         } else if (this.value < 0.1) {
             throw new DomainException("O valor da atividade deve ser maior que 0");
         } else if (this.createdAt.isAfter(this.updatedAt)) {
-            throw new DomainException("Activity's created at should be before updated at");
+            throw new DomainException("A data de criação da atividade deve ser anterior à data de atualização");
         }
     }
 
