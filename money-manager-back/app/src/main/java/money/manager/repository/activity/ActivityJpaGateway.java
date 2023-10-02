@@ -11,6 +11,9 @@ import money.manager.domain.gateway.ActivityGateway;
 import money.manager.repository.activity.jpa.ActivityJpaEntity;
 import money.manager.repository.activity.jpa.ActivityJpaRepository;
 
+/**
+ * Uma implementação de ActivityGateway que usa o Spring Data JPA para acessar atividades financeiras.
+ */
 public class ActivityJpaGateway implements ActivityGateway {
 
     private ActivityJpaRepository activityRepository;
@@ -19,6 +22,12 @@ public class ActivityJpaGateway implements ActivityGateway {
         this.activityRepository = aRepository;
     }
 
+    /**
+     * Cria uma instância de ActivityJpaGateway com o repositório JPA fornecido.
+     *
+     * @param aRepository O repositório JPA a ser usado para acessar atividades financeiras.
+     * @return Uma instância de ActivityJpaGateway.
+     */
     public static ActivityJpaGateway build(final ActivityJpaRepository aRepository) {
         return new ActivityJpaGateway(aRepository);
     }
@@ -53,5 +62,4 @@ public class ActivityJpaGateway implements ActivityGateway {
                 .map(activityEntity -> activityEntity.toModel())
                 .collect(Collectors.toList());
     }
-
 }

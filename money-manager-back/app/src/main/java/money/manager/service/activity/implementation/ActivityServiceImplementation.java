@@ -13,6 +13,9 @@ import money.manager.service.activity.dto.mapper.ActivityToInsertActivityOutputM
 import money.manager.service.activity.dto.mapper.ActivityToListActivitiesOutputMapper;
 import money.manager.service.activity.dto.mapper.InsertActivityInputToActivityMapper;
 
+/**
+ * Uma classe que implementa o serviço relacionado a atividades financeiras.
+ */
 public class ActivityServiceImplementation implements ActivityService {
 
     private ActivityGateway activityGateway;
@@ -21,10 +24,22 @@ public class ActivityServiceImplementation implements ActivityService {
         this.activityGateway = aGateway;
     }
 
+    /**
+     * Cria uma instância de ActivityServiceImplementation.
+     *
+     * @param aGateway O gateway para acessar as atividades financeiras.
+     * @return Uma instância de ActivityServiceImplementation.
+     */
     public static ActivityServiceImplementation build(final ActivityGateway aGateway) {
         return new ActivityServiceImplementation(aGateway);
     }
 
+    /**
+     * Insere uma nova atividade financeira com base nas informações de entrada.
+     *
+     * @param anInput As informações de entrada para inserir a atividade.
+     * @return As informações de saída da atividade inserida.
+     */
     @Override
     public InsertActivityOutputDto insertActivity(final InsertActivityInputDto anInput) {
         final var anActivity = InsertActivityInputToActivityMapper.build().apply(anInput);
@@ -34,11 +49,21 @@ public class ActivityServiceImplementation implements ActivityService {
         return ActivityToInsertActivityOutputMapper.build().apply(anActivity);
     }
 
+    /**
+     * Remove uma atividade financeira com base no ID fornecido.
+     *
+     * @param anId O ID da atividade a ser removida.
+     */
     @Override
     public void removeActivity(final String anId) {
         this.activityGateway.delete(anId);
     }
 
+    /**
+     * Lista todas as atividades financeiras.
+     *
+     * @return Uma lista de informações de saída das atividades financeiras.
+     */
     @Override
     public List<ListActivitiesOutputDto> listActivities() {
         final var aList = this.activityGateway.findAll();
@@ -49,6 +74,11 @@ public class ActivityServiceImplementation implements ActivityService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Calcula o saldo total com base nas atividades financeiras.
+     *
+     * @return O saldo total.
+     */
     @Override
     public float calculateBalance() {
         final var aList = this.activityGateway.findAll();
@@ -64,5 +94,4 @@ public class ActivityServiceImplementation implements ActivityService {
                                 : -a.getValue())
                 .sum();
     }
-
 }

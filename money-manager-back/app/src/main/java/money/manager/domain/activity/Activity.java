@@ -80,6 +80,8 @@ public class Activity {
                 anUpdatedAt);
     }
 
+    // adicionar mais vaidacoes, put actitvity, get by ID
+
     private void validate() {
         if (this.id.isBlank()) {
             throw new DomainException("O ID da atividade não pode estar em branco");

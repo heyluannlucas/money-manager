@@ -10,6 +10,9 @@ import jakarta.persistence.Table;
 import money.manager.domain.activity.Activity;
 import money.manager.domain.activity.type.Type.ActivityType;
 
+/**
+ * Uma entidade JPA que representa uma atividade financeira em um sistema de gerenciamento financeiro.
+ */
 @Entity(name = "Activity")
 @Table(name = "activities")
 public class ActivityJpaEntity {
@@ -46,6 +49,12 @@ public class ActivityJpaEntity {
         this.updatedAt = anUpdatedAt;
     }
 
+    /**
+     * Converte uma instância de Activity para ActivityJpaEntity.
+     *
+     * @param anActivity A atividade a ser convertida.
+     * @return Uma instância de ActivityJpaEntity.
+     */
     public static ActivityJpaEntity from(final Activity anActivity) {
 
         final var aType = List.of(ActivityType.values())
@@ -64,6 +73,11 @@ public class ActivityJpaEntity {
                 anActivity.getUpdatedAt());
     }
 
+    /**
+     * Converte uma instância de ActivityJpaEntity para Activity.
+     *
+     * @return Uma instância de Activity.
+     */
     public Activity toModel() {
         return Activity.with(this.getId(),
                 this.getDate(),
@@ -73,6 +87,8 @@ public class ActivityJpaEntity {
                 this.getCreatedAt(),
                 this.getUpdatedAt());
     }
+
+    // Getters e setters para os campos da entidade.
 
     /**
      * @return the id

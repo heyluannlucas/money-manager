@@ -2,6 +2,9 @@ package money.manager.service.activity.dto;
 
 import java.time.Instant;
 
+/**
+ * Um registro de dados que representa as informações de saída de uma lista de atividades.
+ */
 public record ListActivitiesOutputDto(
         String id,
         Instant date,
@@ -11,4 +14,5 @@ public record ListActivitiesOutputDto(
         Instant createdAt,
         Instant updatedAt) {
 
+    // Construtor automático, getters e métodos equals e hashCode são gerados automaticamente
 }
